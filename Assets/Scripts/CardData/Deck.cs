@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 public class Deck
 {
     private List<Card> cards = new List<Card>();
@@ -15,4 +16,22 @@ public class Deck
             }
         }
     }
+
+    public void Shuffle()
+    {
+        for (int i = 0; i < cards.Count; i++)
+        {
+            int randomIndex = Random.Range(i, cards.Count);
+            (cards[i], cards[randomIndex]) = (cards[randomIndex], cards[i]);
+        }
+    }
+
+    public Card DrawCard()
+    {
+        Card card = cards[0];
+        cards.RemoveAt(0);
+        return card;
+    }
+
+
 }
