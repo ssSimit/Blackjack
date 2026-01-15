@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1014
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 20
+  controlID: 124
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -247,8 +247,8 @@ MonoBehaviour:
     y: 0
     width: 405
     height: 660
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 226}
+  m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -273,14 +273,14 @@ MonoBehaviour:
     y: 660
     width: 405
     height: 298
-  m_MinSize: {x: 52, y: 76}
-  m_MaxSize: {x: 4002, y: 4026}
-  m_ActualView: {fileID: 20}
+  m_MinSize: {x: 232, y: 276}
+  m_MaxSize: {x: 10002, y: 10026}
+  m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
   - {fileID: 20}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1192,9 +1192,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -3.3152797, y: -0.040460207, z: 494.63336}
+    m_Target: {x: -4.926955, y: -1.669698, z: 772.76807}
     speed: 2
-    m_Value: {x: -3.3646824, y: -0.056143932, z: 522.4499}
+    m_Value: {x: -4.6235986, y: -1.6636257, z: 735.56885}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1244,9 +1244,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 2.0604753
+    m_Target: 4.6658993
     speed: 2
-    m_Value: 2.1575658
+    m_Value: 4.4649754
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1417,22 +1417,16 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs:
-      - m_Data: 37482
+      m_SelectedIDs: []
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
+      - m_Data: -2022
       - m_Data: -1316
-      - m_Data: 40036
-      - m_Data: 40040
-      - m_Data: 40046
-      - m_Data: 40066
       - m_Data: 40132
       - m_Data: 40140
       - m_Data: 40158
-      - m_Data: 40162
-      - m_Data: 40226
-      - m_Data: 40236
+      - m_Data: 40242
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1507,7 +1501,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Packages/com.unity.2d.animation/Editor/SkinningModule/SkinningCache
+    - Assets
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1517,24 +1511,20 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Packages/com.unity.2d.animation/Editor/SkinningModule/SkinningCache
+  - Assets
   m_LastFoldersGridSize: 16
   m_LastProjectPath: /home/simx/UnityProjects/Blackjack
   m_LockTracker:
     m_IsLocked: 0
   m_LastLocalAssetsSearchArea: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 212}
+    scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
-    - m_Data: 40628
+    - m_Data: 40592
     m_LastClickedID:
-      m_Data: 40628
+      m_Data: 40592
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 40446
-    - m_Data: 40448
-    - m_Data: 40450
-    - m_Data: 40452
     - m_Data: 40454
     - m_Data: 40456
     - m_Data: 40458
@@ -1546,6 +1536,10 @@ MonoBehaviour:
     - m_Data: 40470
     - m_Data: 40472
     - m_Data: 40474
+    - m_Data: 40476
+    - m_Data: 40478
+    - m_Data: 40480
+    - m_Data: 40482
     - m_Data: 2147483647
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1579,10 +1573,6 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 40446
-    - m_Data: 40448
-    - m_Data: 40450
-    - m_Data: 40452
     - m_Data: 40454
     - m_Data: 40456
     - m_Data: 40458
@@ -1594,6 +1584,10 @@ MonoBehaviour:
     - m_Data: 40470
     - m_Data: 40472
     - m_Data: 40474
+    - m_Data: 40476
+    - m_Data: 40478
+    - m_Data: 40480
+    - m_Data: 40482
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1620,10 +1614,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs:
-    - m_Data: 37482
-    m_LastClickedInstanceID: 37482
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: []
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs:
     - m_Data: 41766
     - m_Data: 42330
@@ -1645,8 +1638,8 @@ MonoBehaviour:
     - m_Data: 40360
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Dealer
-      m_OriginalName: Dealer
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
@@ -1654,10 +1647,10 @@ MonoBehaviour:
         width: 0
         height: 0
       m_UserData:
-        m_Data: 42010
+        m_Data: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 11}
