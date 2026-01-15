@@ -9,5 +9,10 @@ public class CardView : MonoBehaviour
     {
         cardImage.sprite = CardSpriteDatabase.GetSprite(card);
     }
+
+    public void SetBackside()
+    {
+        cardImage.sprite = CardSpriteDatabase.GetBacksideSprite();
+    }
 }
 

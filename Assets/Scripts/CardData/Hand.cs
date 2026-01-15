@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+
+
+[System.Serializable]
 public class Hand
 {
     public List<Card> cards = new List<Card>();
