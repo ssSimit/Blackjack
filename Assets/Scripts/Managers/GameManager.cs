@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
     public enum GameState
     {
         Dealing,
@@ -26,31 +27,40 @@ public class GameManager : MonoBehaviour
 
     public int playerCount;
 
-    [SerializeField] TextMeshProUGUI[] playerHandValueTexts;
+    public List<TextMeshProUGUI> playerHandValueTexts;
     [SerializeField] TextMeshProUGUI dealerHandValueText;
 
     [SerializeField] private CardView cardViewPrefab;
-    [SerializeField] private RectTransform[] playerCardAnchors;
+    public List<RectTransform> playerCardAnchors;
+    public List<HorizontalLayoutGroup> playerHandHorizontalGroups;
     [SerializeField] private RectTransform dealerCardAnchor;
 
     CardView dealerFirstCardView;
 
     void Awake()
     {
+        Instance = this;
         Bootstrap();
     }
 
-    void Start()
-    {
-        SpawnOpeningCardViews();
-    }
+    // void Start()
+    // {
+    //     SpawnOpeningCardViews();
+    // }
 
     private void Bootstrap()
     {
         InitializeCardSprites();
         InitializeDeck();
+        //  InitializeHands();
+        //  DealOpeningCards();
+    }
+
+    public void StartGame()
+    {
         InitializeHands();
         DealOpeningCards();
+        SpawnOpeningCardViews();
     }
 
     private void InitializeCardSprites()
@@ -65,7 +75,7 @@ public class GameManager : MonoBehaviour
         deck.Shuffle();
     }
 
-    private void InitializeHands()
+    public void InitializeHands()
     {
         playerHands = new List<Hand>();
 
@@ -75,7 +85,7 @@ public class GameManager : MonoBehaviour
         dealerHand = new Hand();
     }
 
-    private void DealOpeningCards()
+    public void DealOpeningCards()
     {
         foreach (Hand hand in playerHands)
         {
@@ -137,9 +147,11 @@ public class GameManager : MonoBehaviour
         hand.cards.Add(card);
 
         SpawnSingleCardView(currentPlayerIndex, card);
+        playerHandHorizontalGroups[currentPlayerIndex].spacing = -(460 + (hand.cards.Count - 2) * 100);
+
+        playerHandValueTexts[currentPlayerIndex].text = $"Total: {hand.GetHandValue()}";
 
         CheckPlayerBustOrContinue(hand);
-        playerHandValueTexts[currentPlayerIndex].text = $"Total: {hand.GetHandValue()}";
 
     }
 
@@ -193,7 +205,7 @@ public class GameManager : MonoBehaviour
     {
         while (dealerHand.GetHandValue() < 17)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.5f);
 
             Card card = deck.DrawCard();
             dealerHand.cards.Add(card);
@@ -207,6 +219,7 @@ public class GameManager : MonoBehaviour
         CardView view = Instantiate(cardViewPrefab, dealerCardAnchor);
         view.SetCard(card);
         dealerHandValueText.text = $"Total: {dealerHand.GetHandValue()}";
+        Debug.Log($"Total is now {dealerHand.GetHandValue()}.");
     }
 
 

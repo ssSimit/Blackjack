@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 112}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 19323
+  controlID: 2495
   draggingID: 0
 --- !u!114 &2
 MonoBehaviour:
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 19324
+  controlID: 2496
   draggingID: 0
 --- !u!114 &4
 MonoBehaviour:
@@ -699,9 +699,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -1.4237784, y: 0.46481368, z: 1191.2831}
+    m_Target: {x: -4.2631516, y: -0.48607105, z: 890.24445}
     speed: 2
-    m_Value: {x: -1.4237784, y: 0.46481368, z: 1191.2831}
+    m_Value: {x: -4.2631516, y: -0.48607105, z: 890.24445}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -751,9 +751,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 4.500709
+    m_Target: 5.287713
     speed: 2
-    m_Value: 4.500709
+    m_Value: 5.287713
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -934,7 +934,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 112}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 19385
+  controlID: 2599
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -955,8 +955,8 @@ MonoBehaviour:
     y: 0
     width: 405
     height: 660
-  m_MinSize: {x: 201, y: 226}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 202, y: 226}
+  m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 11}
   m_Panes:
   - {fileID: 11}
@@ -1003,22 +1003,16 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: []
+      m_SelectedIDs:
+      - m_Data: 40280
       m_LastClickedID:
-        m_Data: 0
+        m_Data: 40280
       m_ExpandedIDs:
-      - m_Data: -22470
-      - m_Data: -21958
-      - m_Data: -21886
-      - m_Data: -15198
-      - m_Data: -4114
       - m_Data: -1316
-      - m_Data: 39988
-      - m_Data: 39996
-      - m_Data: 40006
-      - m_Data: 40014
-      - m_Data: 40026
-      - m_Data: 40032
+      - m_Data: 40218
+      - m_Data: 40228
+      - m_Data: 40232
+      - m_Data: 40356
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1036,7 +1030,7 @@ MonoBehaviour:
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
-        m_ClientGUIView: {fileID: 0}
+        m_ClientGUIView: {fileID: 10}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -1139,24 +1133,28 @@ MonoBehaviour:
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs:
-    - m_Data: 40494
+    - m_Data: 40740
     m_LastClickedID:
-      m_Data: 40494
+      m_Data: 40740
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 40212
-    - m_Data: 40214
-    - m_Data: 40216
-    - m_Data: 40218
-    - m_Data: 40220
-    - m_Data: 40222
-    - m_Data: 40224
-    - m_Data: 40336
-    - m_Data: 40348
-    - m_Data: 42956
-    - m_Data: 42958
-    - m_Data: 42960
-    - m_Data: 42962
+    - m_Data: 40602
+    - m_Data: 40604
+    - m_Data: 40606
+    - m_Data: 40608
+    - m_Data: 40610
+    - m_Data: 40612
+    - m_Data: 40614
+    - m_Data: 40616
+    - m_Data: 40618
+    - m_Data: 40620
+    - m_Data: 40622
+    - m_Data: 40624
+    - m_Data: 40626
+    - m_Data: 40628
+    - m_Data: 40630
+    - m_Data: 40632
+    - m_Data: 40738
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1189,18 +1187,22 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 40212
-    - m_Data: 40214
-    - m_Data: 40216
-    - m_Data: 40218
-    - m_Data: 40220
-    - m_Data: 40222
-    - m_Data: 40224
-    - m_Data: 40348
-    - m_Data: 42956
-    - m_Data: 42958
-    - m_Data: 42960
-    - m_Data: 42962
+    - m_Data: 40602
+    - m_Data: 40604
+    - m_Data: 40606
+    - m_Data: 40608
+    - m_Data: 40610
+    - m_Data: 40612
+    - m_Data: 40614
+    - m_Data: 40616
+    - m_Data: 40618
+    - m_Data: 40620
+    - m_Data: 40622
+    - m_Data: 40624
+    - m_Data: 40626
+    - m_Data: 40628
+    - m_Data: 40630
+    - m_Data: 40632
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1227,9 +1229,10 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: []
-    m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs:
+    - m_Data: 40280
+    m_LastClickedInstanceID: 40280
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs:
     - m_Data: 41766
     - m_Data: 42330
@@ -1247,10 +1250,15 @@ MonoBehaviour:
     - m_Data: 53652
     - m_Data: 40338
     - m_Data: 42950
+    - m_Data: 40368
+    - m_Data: 40360
+    - m_Data: 41442
+    - m_Data: 40386
+    - m_Data: 40516
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: CardsSpritesheet
+      m_OriginalName: CardsSpritesheet
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
@@ -1258,10 +1266,10 @@ MonoBehaviour:
         width: 0
         height: 0
       m_UserData:
-        m_Data: 0
+        m_Data: 40516
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_TrimLeadingAndTrailingWhitespace: 0
       m_ClientGUIView: {fileID: 12}
@@ -1272,7 +1280,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 815}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 107.97864
@@ -1333,8 +1341,8 @@ MonoBehaviour:
     y: 0
     width: 351
     height: 958
-  m_MinSize: {x: 276, y: 76}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -1381,7 +1389,7 @@ MonoBehaviour:
   m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
-    m_CachedPref: -209.26782
+    m_CachedPref: 317.0406
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
