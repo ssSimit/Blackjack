@@ -3,10 +3,16 @@ using UnityEngine.UI;
 using TMPro;
 public class ProfileAndBetManager : MonoBehaviour
 {
-    private int totalPlayers = 1;
+    public static ProfileAndBetManager Instance;
+    private int totalPlayers = 0;
     [SerializeField] private Sprite[] profilePictures;
+    public int[] playerBets = new int[] { 0, 0, 0 };
     GameManager gm;
 
+    void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         gm = GameManager.Instance;
@@ -25,9 +31,16 @@ public class ProfileAndBetManager : MonoBehaviour
         profileImage.sprite = profilePictures[totalPlayers - 1];
     }
 
+    public void SetBetOptions(BetButton bet)
+    {
+        bet.playerIndex = totalPlayers - 1;
+    }
+
     [ContextMenu("Start Game")]
     public void StartGame()
     {
         gm.StartGame();
     }
+
+
 }
