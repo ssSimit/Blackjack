@@ -6,7 +6,14 @@ public class ProfileAndBetManager : MonoBehaviour
     public static ProfileAndBetManager Instance;
     private int totalPlayers = 0;
     [SerializeField] private Sprite[] profilePictures;
+    [SerializeField] GameObject startGameButton;
+    [SerializeField] Button[] addPlayerButtons;
+
+    [SerializeField] GameObject actionButtonsGO;
     public int[] playerBets = new int[] { 0, 0, 0 };
+    public int[] totalPlayerChips = new int[] { 5000, 5000, 5000 };
+
+    int betNumber = 0;
     GameManager gm;
 
     void Awake()
@@ -36,11 +43,36 @@ public class ProfileAndBetManager : MonoBehaviour
         bet.playerIndex = totalPlayers - 1;
     }
 
+    public void PlaceBet(int playerIndex, int amount)
+    {
+        playerBets[playerIndex] = amount;
+        totalPlayerChips[playerIndex] -= amount;
+        betNumber++;
+        if (betNumber >= totalPlayers)
+        {
+            startGameButton.SetActive(true);
+            betNumber = 0;
+            foreach (Button btn in addPlayerButtons)
+            {
+                if (btn.interactable)
+                {
+                    btn.gameObject.SetActive(false);
+                }
+            }
+        }
+    }
+
     [ContextMenu("Start Game")]
     public void StartGame()
     {
         gm.StartGame();
     }
 
+    public void SetPlayerActionButtons(RectTransform buttonTransform)
+    {
+
+        actionButtonsGO.GetComponent<RectTransform>().position = buttonTransform.position;
+
+    }
 
 }

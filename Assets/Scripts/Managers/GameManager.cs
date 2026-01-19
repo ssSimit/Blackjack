@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class GameManager : MonoBehaviour
     }
 
     public GameState gameState;
-    private int currentPlayerIndex;
+    public int currentPlayerIndex;
 
     [Header("Assets")]
     [SerializeField] private Sprite[] cardSprites;
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private RectTransform dealerCardAnchor;
 
     CardView dealerFirstCardView;
+
+    public UnityEvent nextPlayerTurnEvent = new UnityEvent();
 
     void Awake()
     {
@@ -184,6 +187,7 @@ public class GameManager : MonoBehaviour
         {
             // Next player
             // HighlightActivePlayer(currentPlayerIndex);
+            nextPlayerTurnEvent.Invoke();
         }
         else
         {
