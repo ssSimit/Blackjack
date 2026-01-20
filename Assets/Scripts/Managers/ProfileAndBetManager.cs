@@ -66,6 +66,7 @@ public class ProfileAndBetManager : MonoBehaviour
     public void StartGame()
     {
         gm.StartGame();
+        actionButtonsGO.SetActive(true);
     }
 
     public void SetPlayerActionButtons(RectTransform buttonTransform)

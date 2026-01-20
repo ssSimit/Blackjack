@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
 
     CardView dealerFirstCardView;
 
+    bool allPlayersBust;
+    int playersBustedCount;
+
     public UnityEvent nextPlayerTurnEvent = new UnityEvent();
 
     void Awake()
@@ -137,6 +140,7 @@ public class GameManager : MonoBehaviour
     {
         currentPlayerIndex = 0;
         gameState = GameState.PlayerTurn;
+        CheckBlackJack();
     }
 
     public void OnHitPressed()
@@ -166,7 +170,30 @@ public class GameManager : MonoBehaviour
         if (value > 21)
         {
             Debug.Log($"Player {currentPlayerIndex + 1} Busts with {value}!");
+            playersBustedCount++;
+            if (playersBustedCount >= playerHands.Count)
+            {
+                allPlayersBust = true;
+            }
             // Bust
+            EndCurrentPlayerTurn();
+        }
+        else if (value == 21)
+        {
+            Debug.Log($"Player {currentPlayerIndex + 1} hits 21!");
+            // Auto-stand on 21
+            EndCurrentPlayerTurn();
+        }
+    }
+
+    void CheckBlackJack()
+    {
+        Debug.Log("Checking for Blackjack...");
+        Hand hand = playerHands[currentPlayerIndex];
+        int value = hand.GetHandValue();
+        if (value == 21)
+        {
+            Debug.Log($"Player {currentPlayerIndex + 1} has Blackjack!");
             EndCurrentPlayerTurn();
         }
     }
@@ -188,6 +215,7 @@ public class GameManager : MonoBehaviour
             // Next player
             // HighlightActivePlayer(currentPlayerIndex);
             nextPlayerTurnEvent.Invoke();
+            CheckBlackJack();
         }
         else
         {
@@ -202,6 +230,12 @@ public class GameManager : MonoBehaviour
 
         //  EnablePlayerInput(false);
         dealerFirstCardView.SetCard(dealerHand.cards[0]);
+        if (allPlayersBust)
+        {
+            ResolveRound();
+            Debug.Log("All players busted. Dealer wins by default.");
+            return;
+        }
         StartCoroutine(DealerPlayRoutine());
     }
 
@@ -223,7 +257,7 @@ public class GameManager : MonoBehaviour
         CardView view = Instantiate(cardViewPrefab, dealerCardAnchor);
         view.SetCard(card);
         dealerHandValueText.text = $"Total: {dealerHand.GetHandValue()}";
-        Debug.Log($"Total is now {dealerHand.GetHandValue()}.");
+        // Debug.Log($"Total is now {dealerHand.GetHandValue()}.");
     }
 
 

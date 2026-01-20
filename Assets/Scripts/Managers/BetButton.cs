@@ -13,6 +13,7 @@ public class BetButton : MonoBehaviour
         pbm = ProfileAndBetManager.Instance;
         gm = GameManager.Instance;
         gm.nextPlayerTurnEvent.AddListener(PlayerActionButtons);
+        PlayerActionButtons();
     }
 
     public void PlaceBet(int amount)
