@@ -5,6 +5,7 @@ public class BetButton : MonoBehaviour
 {
     public int playerIndex;
     [SerializeField] TextMeshProUGUI playerChipsText;
+    [SerializeField] TextMeshProUGUI betAmountText;
     [SerializeField] RectTransform buttonTransform;
     ProfileAndBetManager pbm;
     GameManager gm;
@@ -20,6 +21,7 @@ public class BetButton : MonoBehaviour
     {
         pbm.PlaceBet(playerIndex, amount);
         playerChipsText.text = pbm.totalPlayerChips[playerIndex].ToString();
+        betAmountText.text = amount.ToString();
     }
 
     void PlayerActionButtons()

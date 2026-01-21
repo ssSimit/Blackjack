@@ -8,6 +8,7 @@ public class ProfileAndBetManager : MonoBehaviour
     [SerializeField] private Sprite[] profilePictures;
     [SerializeField] GameObject startGameButton;
     [SerializeField] Button[] addPlayerButtons;
+    [SerializeField] GameObject[] betChipsGOs;
 
     [SerializeField] GameObject actionButtonsGO;
     public int[] playerBets = new int[] { 0, 0, 0 };
@@ -62,18 +63,26 @@ public class ProfileAndBetManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("Start Game")]
     public void StartGame()
     {
         gm.StartGame();
         actionButtonsGO.SetActive(true);
+        SetBetChips();
     }
 
     public void SetPlayerActionButtons(RectTransform buttonTransform)
     {
 
         actionButtonsGO.GetComponent<RectTransform>().position = buttonTransform.position;
+    }
 
+
+    void SetBetChips()
+    {
+        for (int i = 0; i < totalPlayers; i++)
+        {
+            betChipsGOs[i].SetActive(true);
+        }
     }
 
 }
