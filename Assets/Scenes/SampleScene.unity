@@ -1955,6 +1955,12 @@ MonoBehaviour:
   nextPlayerTurnEvent:
     m_PersistentCalls:
       m_Calls: []
+  dealersTurn:
+    m_PersistentCalls:
+      m_Calls: []
+  sendPlayerFeedback:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &420549265
 Transform:
   m_ObjectHideFlags: 0
@@ -5131,6 +5137,7 @@ MonoBehaviour:
   playerIndex: 0
   playerChipsText: {fileID: 2034020196}
   betAmountText: {fileID: 1932426351}
+  feedbackText: {fileID: 984936882}
   buttonTransform: {fileID: 534049072}
 --- !u!1 &1218259254
 GameObject:
@@ -5215,6 +5222,7 @@ MonoBehaviour:
   playerIndex: 0
   playerChipsText: {fileID: 1863927139}
   betAmountText: {fileID: 1815858084}
+  feedbackText: {fileID: 457246725}
   buttonTransform: {fileID: 1402784754}
 --- !u!1 &1220941623
 GameObject:
@@ -5457,6 +5465,7 @@ MonoBehaviour:
   playerIndex: 0
   playerChipsText: {fileID: 879581277}
   betAmountText: {fileID: 1782105470}
+  feedbackText: {fileID: 1348833108}
   buttonTransform: {fileID: 226421064}
 --- !u!1 &1239493627
 GameObject:

@@ -6,6 +6,9 @@ public class BetButton : MonoBehaviour
     public int playerIndex;
     [SerializeField] TextMeshProUGUI playerChipsText;
     [SerializeField] TextMeshProUGUI betAmountText;
+
+    [SerializeField] TextMeshProUGUI feedbackText;
+
     [SerializeField] RectTransform buttonTransform;
     ProfileAndBetManager pbm;
     GameManager gm;
@@ -14,6 +17,14 @@ public class BetButton : MonoBehaviour
         pbm = ProfileAndBetManager.Instance;
         gm = GameManager.Instance;
         gm.nextPlayerTurnEvent.AddListener(PlayerActionButtons);
+        gm.sendPlayerFeedback.AddListener((message, index) =>
+        {
+            if (index == playerIndex)
+            {
+                feedbackText.text = message;
+            }
+        });
+        gm.roundResolved.AddListener(UpdateChipText);
         PlayerActionButtons();
     }
 
@@ -30,6 +41,11 @@ public class BetButton : MonoBehaviour
         {
             pbm.SetPlayerActionButtons(buttonTransform);
         }
+    }
+
+    void UpdateChipText()
+    {
+        playerChipsText.text = pbm.totalPlayerChips[playerIndex].ToString();
     }
 
 }

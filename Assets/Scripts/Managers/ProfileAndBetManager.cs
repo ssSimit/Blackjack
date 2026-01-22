@@ -24,6 +24,8 @@ public class ProfileAndBetManager : MonoBehaviour
     void Start()
     {
         gm = GameManager.Instance;
+        gm.dealersTurn.AddListener(() => actionButtonsGO.SetActive(false));
+        gm.sendPlayerWinLoss.AddListener(handleLossAndWin);
     }
     public void AddPlayer(GameObject PlayerHand)
     {
@@ -83,6 +85,30 @@ public class ProfileAndBetManager : MonoBehaviour
         {
             betChipsGOs[i].SetActive(true);
         }
+    }
+
+    void handleLossAndWin(bool won, int index, bool push)
+    {
+        if (!push)
+        {
+            if (won)
+            {
+                float multiplier = 2f;
+                if (gm.playersWithBlackjack.Contains(index))
+                {
+                    multiplier = 2.5f;
+                }
+                int winnings = (int)(playerBets[index] * multiplier);
+                totalPlayerChips[index] += winnings;
+            }
+        }
+        else
+        {
+            totalPlayerChips[index] += playerBets[index];
+        }
+
+        playerBets[index] = 0;
+        gm.playersWithBlackjack.Clear();
     }
 
 }

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 1014
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Inspector
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -167,8 +167,8 @@ MonoBehaviour:
     y: 0
     width: 1072
     height: 322
-  m_MinSize: {x: 201, y: 226}
-  m_MaxSize: {x: 4001, y: 4026}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -247,8 +247,8 @@ MonoBehaviour:
     y: 0
     width: 497
     height: 660
-  m_MinSize: {x: 202, y: 226}
-  m_MaxSize: {x: 4002, y: 4026}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -1192,9 +1192,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -3.2328773, y: -1.0170251, z: 432.30563}
+    m_Target: {x: -2.8761237, y: 0.72071505, z: 191.59915}
     speed: 2
-    m_Value: {x: -3.2328773, y: -1.0170251, z: 432.30563}
+    m_Value: {x: -2.8761237, y: 0.72071505, z: 191.59915}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1244,9 +1244,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 3.7406087
+    m_Target: 2.0309725
     speed: 2
-    m_Value: 3.7406087
+    m_Value: 2.0309725
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -1417,19 +1417,20 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: []
+      m_SelectedIDs:
+      - m_Data: 37482
       m_LastClickedID:
         m_Data: 0
       m_ExpandedIDs:
-      - m_Data: -2510
       - m_Data: -1316
-      - m_Data: 40044
-      - m_Data: 40050
-      - m_Data: 40072
       - m_Data: 40130
-      - m_Data: 40422
-      - m_Data: 40440
-      - m_Data: 40480
+      - m_Data: 40192
+      - m_Data: 40322
+      - m_Data: 40458
+      - m_Data: 40476
+      - m_Data: 40630
+      - m_Data: 40640
+      - m_Data: 40802
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1521,32 +1522,33 @@ MonoBehaviour:
     m_IsLocked: 0
   m_LastLocalAssetsSearchArea: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 1263}
+    scrollPos: {x: 0, y: 1268}
     m_SelectedIDs:
-    - m_Data: 41236
+    - m_Data: 41242
     m_LastClickedID:
-      m_Data: 41236
+      m_Data: 41242
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 40984
-    - m_Data: 40986
-    - m_Data: 40988
-    - m_Data: 40990
-    - m_Data: 40992
-    - m_Data: 40994
-    - m_Data: 40996
-    - m_Data: 40998
-    - m_Data: 41000
-    - m_Data: 41002
-    - m_Data: 41004
-    - m_Data: 41006
-    - m_Data: 41008
-    - m_Data: 41010
-    - m_Data: 41012
-    - m_Data: 41014
-    - m_Data: 41016
-    - m_Data: 41018
-    - m_Data: 41020
+    - m_Data: 41062
+    - m_Data: 41064
+    - m_Data: 41066
+    - m_Data: 41068
+    - m_Data: 41070
+    - m_Data: 41072
+    - m_Data: 41074
+    - m_Data: 41076
+    - m_Data: 41078
+    - m_Data: 41080
+    - m_Data: 41082
+    - m_Data: 41084
+    - m_Data: 41086
+    - m_Data: 41088
+    - m_Data: 41090
+    - m_Data: 41092
+    - m_Data: 41094
+    - m_Data: 41096
+    - m_Data: 41098
+    - m_Data: 41240
     - m_Data: 2147483647
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1580,25 +1582,25 @@ MonoBehaviour:
       m_Data: 0
     m_ExpandedIDs:
     - m_Data: 0
-    - m_Data: 40984
-    - m_Data: 40986
-    - m_Data: 40988
-    - m_Data: 40990
-    - m_Data: 40992
-    - m_Data: 40994
-    - m_Data: 40996
-    - m_Data: 40998
-    - m_Data: 41000
-    - m_Data: 41002
-    - m_Data: 41004
-    - m_Data: 41006
-    - m_Data: 41008
-    - m_Data: 41010
-    - m_Data: 41012
-    - m_Data: 41014
-    - m_Data: 41016
-    - m_Data: 41018
-    - m_Data: 41020
+    - m_Data: 41062
+    - m_Data: 41064
+    - m_Data: 41066
+    - m_Data: 41068
+    - m_Data: 41070
+    - m_Data: 41072
+    - m_Data: 41074
+    - m_Data: 41076
+    - m_Data: 41078
+    - m_Data: 41080
+    - m_Data: 41082
+    - m_Data: 41084
+    - m_Data: 41086
+    - m_Data: 41088
+    - m_Data: 41090
+    - m_Data: 41092
+    - m_Data: 41094
+    - m_Data: 41096
+    - m_Data: 41098
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1626,9 +1628,9 @@ MonoBehaviour:
       m_ResourceFile: 
   m_ListAreaState:
     m_SelectedInstanceIDs:
-    - m_Data: 40050
-    m_LastClickedInstanceID: 40050
-    m_HadKeyboardFocusLastEvent: 1
+    - m_Data: 37482
+    m_LastClickedInstanceID: 37482
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs:
     - m_Data: 41766
     - m_Data: 42330
