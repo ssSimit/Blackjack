@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-
+using UnityEngine.UI;
 public class BetButton : MonoBehaviour
 {
     public int playerIndex;
@@ -10,6 +10,8 @@ public class BetButton : MonoBehaviour
     [SerializeField] TextMeshProUGUI feedbackText;
 
     [SerializeField] RectTransform buttonTransform;
+    [SerializeField] RectTransform placedBetPosition;
+    [SerializeField] Image avatarImage;
     ProfileAndBetManager pbm;
     GameManager gm;
     void Start()
@@ -17,11 +19,12 @@ public class BetButton : MonoBehaviour
         pbm = ProfileAndBetManager.Instance;
         gm = GameManager.Instance;
         gm.nextPlayerTurnEvent.AddListener(PlayerActionButtons);
-        gm.sendPlayerFeedback.AddListener((message, index) =>
+        gm.sendPlayerFeedback.AddListener((message, index, color) =>
         {
             if (index == playerIndex)
             {
                 feedbackText.text = message;
+                feedbackText.color = color;
             }
         });
         gm.roundResolved.AddListener(UpdateChipText);
@@ -30,7 +33,7 @@ public class BetButton : MonoBehaviour
 
     public void PlaceBet(int amount)
     {
-        pbm.PlaceBet(playerIndex, amount);
+        pbm.PlaceBet(playerIndex, amount, placedBetPosition, playerChipsText.GetComponent<RectTransform>());
         playerChipsText.text = pbm.totalPlayerChips[playerIndex].ToString();
         betAmountText.text = amount.ToString();
     }

@@ -12,6 +12,10 @@ public class ProfileAndBetManager : MonoBehaviour
 
     [SerializeField] GameObject actionButtonsGO;
     public int[] playerBets = new int[] { 0, 0, 0 };
+    [SerializeField] RectTransform[] placedBetPositions;
+    [SerializeField] RectTransform[] playerBankPositions;
+    [SerializeField] RectTransform dealerBankPosition;
+
     public int[] totalPlayerChips = new int[] { 5000, 5000, 5000 };
 
     int betNumber = 0;
@@ -46,9 +50,11 @@ public class ProfileAndBetManager : MonoBehaviour
         bet.playerIndex = totalPlayers - 1;
     }
 
-    public void PlaceBet(int playerIndex, int amount)
+    public void PlaceBet(int playerIndex, int amount, RectTransform placedPosition, RectTransform bankPosition)
     {
         playerBets[playerIndex] = amount;
+        placedBetPositions[playerIndex] = placedPosition;
+        playerBankPositions[playerIndex] = bankPosition;
         totalPlayerChips[playerIndex] -= amount;
         betNumber++;
         if (betNumber >= totalPlayers)
@@ -100,11 +106,17 @@ public class ProfileAndBetManager : MonoBehaviour
                 }
                 int winnings = (int)(playerBets[index] * multiplier);
                 totalPlayerChips[index] += winnings;
+                //   StartCoroutine(ChipShowerManager.Instance.FlyCoin(dealerBankPosition, playerBankPositions[index]));
+            }
+            else
+            {
+                //   StartCoroutine(ChipShowerManager.Instance.FlyCoin(placedBetPositions[index], dealerBankPosition));
             }
         }
         else
         {
             totalPlayerChips[index] += playerBets[index];
+            //  StartCoroutine(ChipShowerManager.Instance.FlyCoin(placedBetPositions[index], playerBankPositions[index]));
         }
 
         playerBets[index] = 0;

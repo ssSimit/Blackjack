@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     public List<HorizontalLayoutGroup> playerHandHorizontalGroups;
     public List<int> playersWithBlackjack;
     [SerializeField] private RectTransform dealerCardAnchor;
+    [SerializeField] private RectTransform deckTransform;
+
 
     CardView dealerFirstCardView;
 
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent nextPlayerTurnEvent = new UnityEvent();
     public UnityEvent dealersTurn = new UnityEvent();
 
-    public UnityEvent<string, int> sendPlayerFeedback = new UnityEvent<string, int>();
+    public UnityEvent<string, int, Color> sendPlayerFeedback = new UnityEvent<string, int, Color>();
     public UnityEvent<bool, int, bool> sendPlayerWinLoss = new UnityEvent<bool, int, bool>();
 
     public UnityEvent roundResolved = new UnityEvent();
@@ -156,6 +158,12 @@ public class GameManager : MonoBehaviour
         if (gameState != GameState.PlayerTurn)
             return;
 
+        StartCoroutine(hitCoroutine());
+    }
+
+    IEnumerator hitCoroutine()
+    {
+        yield return StartCoroutine(ChipShowerManager.Instance.FlyCoinAndCard(deckTransform, playerCardAnchors[currentPlayerIndex], false));
         Hand hand = playerHands[currentPlayerIndex];
 
         Card card = deck.DrawCard();
@@ -179,7 +187,7 @@ public class GameManager : MonoBehaviour
         {
             //  Debug.Log($"Player {currentPlayerIndex + 1} Busts with {value}!");
             playersBustedCount++;
-            sendPlayerFeedback.Invoke("Busted!", currentPlayerIndex);
+            sendPlayerFeedback.Invoke("Busted!", currentPlayerIndex, Color.white);
             if (playersBustedCount >= playerHands.Count)
             {
                 allPlayersBust = true;
@@ -190,7 +198,7 @@ public class GameManager : MonoBehaviour
         else if (value == 21)
         {
             // Debug.Log($"Player {currentPlayerIndex + 1} hits 21!");
-            sendPlayerFeedback.Invoke("21!", currentPlayerIndex);
+            sendPlayerFeedback.Invoke("21!", currentPlayerIndex, Color.yellow);
             // Auto-stand on 21
             EndCurrentPlayerTurn();
         }
@@ -204,7 +212,7 @@ public class GameManager : MonoBehaviour
         if (value == 21)
         {
             // Debug.Log($"Player {currentPlayerIndex + 1} has Blackjack!");
-            sendPlayerFeedback.Invoke("Blackjack!", currentPlayerIndex);
+            sendPlayerFeedback.Invoke("Blackjack!", currentPlayerIndex, Color.yellow);
             playersWithBlackjack.Add(currentPlayerIndex);
             EndCurrentPlayerTurn();
         }
@@ -262,7 +270,7 @@ public class GameManager : MonoBehaviour
             dealerHand.cards.Add(card);
             SpawnDealerCardView(card);
         }
-
+        dealerHandValueText.text = $"Total: {dealerHand.GetHandValue()}";
         ResolveRound();
     }
     private void SpawnDealerCardView(Card card)
@@ -297,35 +305,35 @@ public class GameManager : MonoBehaviour
             {
                 // Player busts → lose
                 //   Debug.Log($"Player {i + 1} loses with bust {playerValue}.");
-                sendPlayerFeedback.Invoke("Lost!", i);
+                sendPlayerFeedback.Invoke("Lost!", i, Color.white);
                 playerWon = false;
             }
             else if (dealerValue > 21)
             {
                 // Dealer busts → win
                 // Debug.Log($"Player {i + 1} wins! Dealer busts with {dealerValue}.");
-                sendPlayerFeedback.Invoke("Won!", i);
+                sendPlayerFeedback.Invoke("Won!", i, Color.green);
                 playerWon = true;
             }
             else if (playerValue > dealerValue)
             {
                 // Player wins
                 // Debug.Log($"Player {i + 1} wins with {playerValue} against dealer's {dealerValue}.");
-                sendPlayerFeedback.Invoke("Won!", i);
+                sendPlayerFeedback.Invoke("Won!", i, Color.green);
                 playerWon = true;
             }
             else if (playerValue < dealerValue)
             {
                 // Player loses
                 //   Debug.Log($"Player {i + 1} loses with {playerValue} against dealer's {dealerValue}.");
-                sendPlayerFeedback.Invoke("Lost!", i);
+                sendPlayerFeedback.Invoke("Lost!", i, Color.white);
                 playerWon = false;
             }
             else
             {
                 // Push
                 //  Debug.Log($"Player {i + 1} pushes with {playerValue} against dealer's {dealerValue}.");
-                sendPlayerFeedback.Invoke("Push!", i);
+                sendPlayerFeedback.Invoke("Push!", i, Color.yellow);
                 push = true;
             }
             sendPlayerWinLoss.Invoke(playerWon, i, push);
