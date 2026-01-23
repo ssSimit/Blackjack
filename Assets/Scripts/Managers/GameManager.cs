@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     CardView dealerFirstCardView;
 
     bool allPlayersBust;
+    bool isHitting;
+    bool isDoubleHitting;
     int playersBustedCount;
 
     public UnityEvent nextPlayerTurnEvent = new UnityEvent();
@@ -52,6 +54,8 @@ public class GameManager : MonoBehaviour
     public UnityEvent<bool, int, bool> sendPlayerWinLoss = new UnityEvent<bool, int, bool>();
 
     public UnityEvent roundResolved = new UnityEvent();
+
+    public UnityEvent<int> playerDoubledDown = new UnityEvent<int>();
 
     void Awake()
     {
@@ -67,13 +71,13 @@ public class GameManager : MonoBehaviour
     private void Bootstrap()
     {
         InitializeCardSprites();
-        InitializeDeck();
         //  InitializeHands();
         //  DealOpeningCards();
     }
 
     public void StartGame()
     {
+        InitializeDeck();
         InitializeHands();
         DealOpeningCards();
         SpawnOpeningCardViews();
@@ -153,11 +157,26 @@ public class GameManager : MonoBehaviour
         CheckBlackJack();
     }
 
+    public void OnDoublePressed()
+    {
+        if (gameState != GameState.PlayerTurn)
+            return;
+
+        isDoubleHitting = true;
+        playerDoubledDown.Invoke(currentPlayerIndex);
+        OnHitPressed();
+
+    }
+
     public void OnHitPressed()
     {
         if (gameState != GameState.PlayerTurn)
             return;
 
+        if (isHitting)
+            return;
+
+        isHitting = true;
         StartCoroutine(hitCoroutine());
     }
 
@@ -176,6 +195,12 @@ public class GameManager : MonoBehaviour
 
         CheckPlayerBustOrContinue(hand);
 
+        isHitting = false;
+        if (isDoubleHitting)
+        {
+            isDoubleHitting = false;
+            EndCurrentPlayerTurn();
+        }
     }
 
 
@@ -187,6 +212,7 @@ public class GameManager : MonoBehaviour
         {
             //  Debug.Log($"Player {currentPlayerIndex + 1} Busts with {value}!");
             playersBustedCount++;
+            isDoubleHitting = false;
             sendPlayerFeedback.Invoke("Busted!", currentPlayerIndex, Color.white);
             if (playersBustedCount >= playerHands.Count)
             {
@@ -197,6 +223,7 @@ public class GameManager : MonoBehaviour
         }
         else if (value == 21)
         {
+            isDoubleHitting = false;
             // Debug.Log($"Player {currentPlayerIndex + 1} hits 21!");
             sendPlayerFeedback.Invoke("21!", currentPlayerIndex, Color.yellow);
             // Auto-stand on 21
@@ -240,13 +267,14 @@ public class GameManager : MonoBehaviour
         else
         {
             // All players done
-            dealersTurn.Invoke();
             StartDealerTurn();
         }
     }
 
     private void StartDealerTurn()
     {
+        dealersTurn.Invoke();
+
         gameState = GameState.DealerTurn;
 
         //  EnablePlayerInput(false);
@@ -254,7 +282,7 @@ public class GameManager : MonoBehaviour
         if (allPlayersBust)
         {
             ResolveRound();
-            Debug.Log("All players busted. Dealer wins by default.");
+            //            Debug.Log("All players busted. Dealer wins by default.");
             return;
         }
         StartCoroutine(DealerPlayRoutine());
@@ -264,7 +292,8 @@ public class GameManager : MonoBehaviour
     {
         while (dealerHand.GetHandValue() < 17)
         {
-            yield return new WaitForSeconds(1.5f);
+            yield return StartCoroutine(ChipShowerManager.Instance.FlyCoinAndCard(deckTransform, dealerCardAnchor, false));
+            yield return new WaitForSeconds(0.5f);
 
             Card card = deck.DrawCard();
             dealerHand.cards.Add(card);
@@ -287,6 +316,22 @@ public class GameManager : MonoBehaviour
         CardView view = Instantiate(cardViewPrefab, playerCardAnchors[playerIndex]);
         view.SetCard(card);
     }
+
+    // public bool CanPlayerDoubleDown()
+    // {
+    //     if (gameState != GameState.PlayerTurn)
+    //         return false;
+    //     Hand hand = playerHands[currentPlayerIndex];
+
+    //     if (hand.cards.Count == 2)
+    //     {
+    //         return true;
+    //     }
+    //     else
+    //     {
+    //         return false;
+    //     }
+    // }
 
     private void ResolveRound()
     {
@@ -338,7 +383,28 @@ public class GameManager : MonoBehaviour
             }
             sendPlayerWinLoss.Invoke(playerWon, i, push);
         }
+        Invoke("ResetForNextRound", 3f);
+    }
+
+
+    void ResetForNextRound()
+    {
+        currentPlayerIndex = 0;
         roundResolved.Invoke();
+        playersWithBlackjack.Clear();
+        for (int i = 0; i < playerHands.Count; i++)
+        {
+            playerHandValueTexts[i].text = "";
+        }
+        dealerHandValueText.text = "";
+        allPlayersBust = false;
+        playersBustedCount = 0;
+
+        for (int i = 0; i < playerHandHorizontalGroups.Count; i++)
+        {
+            playerHandHorizontalGroups[i].spacing = -460;
+        }
+
 
     }
 

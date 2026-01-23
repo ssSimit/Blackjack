@@ -11,7 +11,15 @@ public class BetButton : MonoBehaviour
 
     [SerializeField] RectTransform buttonTransform;
     [SerializeField] RectTransform placedBetPosition;
+    [SerializeField] GameObject betChipGO;
+    [SerializeField] GameObject betOptionGO;
+    [SerializeField] GameObject[] allBetBtns;
+    [SerializeField] GameObject refillBtn;
+
     [SerializeField] Image avatarImage;
+
+    int[] betAmounts = new int[] { 20, 50, 100, 1000 };
+    int totalEnabledBets = 0;
     ProfileAndBetManager pbm;
     GameManager gm;
     void Start()
@@ -27,13 +35,25 @@ public class BetButton : MonoBehaviour
                 feedbackText.color = color;
             }
         });
-        gm.roundResolved.AddListener(UpdateChipText);
+        gm.roundResolved.AddListener(RoundResolveUpdate);
+        pbm.doubleBetEvent.AddListener((index, newBet) =>
+        {
+            if (index == playerIndex)
+            {
+                UpdateBetAmountTexts(newBet);
+            }
+        });
         PlayerActionButtons();
     }
 
     public void PlaceBet(int amount)
     {
-        pbm.PlaceBet(playerIndex, amount, placedBetPosition, playerChipsText.GetComponent<RectTransform>());
+        pbm.PlaceBet(playerIndex, amount, placedBetPosition, playerChipsText.GetComponent<RectTransform>(), betChipGO);
+        UpdateBetAmountTexts(amount);
+    }
+
+    void UpdateBetAmountTexts(int amount)
+    {
         playerChipsText.text = pbm.totalPlayerChips[playerIndex].ToString();
         betAmountText.text = amount.ToString();
     }
@@ -46,9 +66,45 @@ public class BetButton : MonoBehaviour
         }
     }
 
-    void UpdateChipText()
+    void RoundResolveUpdate()
     {
+        betChipGO.SetActive(false);
         playerChipsText.text = pbm.totalPlayerChips[playerIndex].ToString();
+        feedbackText.text = "";
+        betAmountText.text = "0";
+        betOptionGO.SetActive(true);
+        CheckBalanceAndEnableBetOptions();
+        PlayerActionButtons();
+    }
+
+    void CheckBalanceAndEnableBetOptions()
+    {
+        totalEnabledBets = 0;
+        for (int i = 0; i < allBetBtns.Length; i++)
+        {
+            Button btn = allBetBtns[i].GetComponent<Button>();
+            if (pbm.totalPlayerChips[playerIndex] >= betAmounts[i])
+            {
+                btn.interactable = true;
+                totalEnabledBets++;
+            }
+            else
+            {
+                btn.interactable = false;
+            }
+        }
+        if (totalEnabledBets == 0)
+        {
+            refillBtn.SetActive(true);
+        }
+    }
+
+    public void RefillChips(int amount)
+    {
+        pbm.totalPlayerChips[playerIndex] += amount;
+        playerChipsText.text = pbm.totalPlayerChips[playerIndex].ToString();
+        CheckBalanceAndEnableBetOptions();
+        refillBtn.SetActive(false);
     }
 
 }

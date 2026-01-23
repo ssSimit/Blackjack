@@ -17,7 +17,7 @@ public class ChipShowerManager : MonoBehaviour
     public IEnumerator FlyCoinAndCard(RectTransform start, RectTransform target, bool isCoin = true)
     {
         if (isCoin)
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
         List<RectTransform> pool = isCoin ? chipGOs : cardGOs;
         if (pool == null || pool.Count == 0)
             yield break;

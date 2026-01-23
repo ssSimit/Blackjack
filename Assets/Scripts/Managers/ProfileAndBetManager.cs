@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 public class ProfileAndBetManager : MonoBehaviour
 {
     public static ProfileAndBetManager Instance;
@@ -11,6 +12,7 @@ public class ProfileAndBetManager : MonoBehaviour
     [SerializeField] GameObject[] betChipsGOs;
 
     [SerializeField] GameObject actionButtonsGO;
+    [SerializeField] GameObject doubleButtonGO;
     public int[] playerBets = new int[] { 0, 0, 0 };
     [SerializeField] RectTransform[] placedBetPositions;
     [SerializeField] RectTransform[] playerBankPositions;
@@ -21,6 +23,8 @@ public class ProfileAndBetManager : MonoBehaviour
     int betNumber = 0;
     GameManager gm;
 
+    public UnityEvent<int, int> doubleBetEvent = new UnityEvent<int, int>();
+
     void Awake()
     {
         Instance = this;
@@ -28,8 +32,18 @@ public class ProfileAndBetManager : MonoBehaviour
     void Start()
     {
         gm = GameManager.Instance;
-        gm.dealersTurn.AddListener(() => actionButtonsGO.SetActive(false));
+        gm.dealersTurn.AddListener(() =>
+        {
+            actionButtonsGO.SetActive(false);
+            doubleButtonGO.SetActive(false);
+        });
         gm.sendPlayerWinLoss.AddListener(handleLossAndWin);
+        gm.nextPlayerTurnEvent.AddListener(CheckAndEnableDoubleButton);
+        gm.playerDoubledDown.AddListener((index) =>
+        {
+            DoubleBet(index);
+            doubleButtonGO.SetActive(false);
+        });
     }
     public void AddPlayer(GameObject PlayerHand)
     {
@@ -50,11 +64,12 @@ public class ProfileAndBetManager : MonoBehaviour
         bet.playerIndex = totalPlayers - 1;
     }
 
-    public void PlaceBet(int playerIndex, int amount, RectTransform placedPosition, RectTransform bankPosition)
+    public void PlaceBet(int playerIndex, int amount, RectTransform placedPosition, RectTransform bankPosition, GameObject betChipsGO)
     {
         playerBets[playerIndex] = amount;
         placedBetPositions[playerIndex] = placedPosition;
         playerBankPositions[playerIndex] = bankPosition;
+        betChipsGOs[playerIndex] = betChipsGO;
         totalPlayerChips[playerIndex] -= amount;
         betNumber++;
         if (betNumber >= totalPlayers)
@@ -71,16 +86,40 @@ public class ProfileAndBetManager : MonoBehaviour
         }
     }
 
+    void DoubleBet(int playerIndex)
+    {
+        int currentBet = playerBets[playerIndex];
+        if (totalPlayerChips[playerIndex] >= currentBet)
+        {
+            playerBets[playerIndex] += currentBet;
+            totalPlayerChips[playerIndex] -= currentBet;
+            doubleBetEvent.Invoke(playerIndex, playerBets[playerIndex]);
+
+        }
+    }
+
+    void CheckAndEnableDoubleButton()
+    {
+        if (totalPlayerChips[gm.currentPlayerIndex] >= playerBets[gm.currentPlayerIndex])
+        {
+            doubleButtonGO.SetActive(true);
+        }
+        else
+        {
+            doubleButtonGO.SetActive(false);
+        }
+    }
+
     public void StartGame()
     {
-        gm.StartGame();
         actionButtonsGO.SetActive(true);
+        CheckAndEnableDoubleButton();
+        gm.StartGame();
         SetBetChips();
     }
 
     public void SetPlayerActionButtons(RectTransform buttonTransform)
     {
-
         actionButtonsGO.GetComponent<RectTransform>().position = buttonTransform.position;
     }
 
@@ -106,21 +145,21 @@ public class ProfileAndBetManager : MonoBehaviour
                 }
                 int winnings = (int)(playerBets[index] * multiplier);
                 totalPlayerChips[index] += winnings;
-                //   StartCoroutine(ChipShowerManager.Instance.FlyCoin(dealerBankPosition, playerBankPositions[index]));
+                StartCoroutine(ChipShowerManager.Instance.FlyCoinAndCard(dealerBankPosition, playerBankPositions[index]));
             }
             else
             {
-                //   StartCoroutine(ChipShowerManager.Instance.FlyCoin(placedBetPositions[index], dealerBankPosition));
+                StartCoroutine(ChipShowerManager.Instance.FlyCoinAndCard(placedBetPositions[index], dealerBankPosition));
             }
         }
         else
         {
             totalPlayerChips[index] += playerBets[index];
-            //  StartCoroutine(ChipShowerManager.Instance.FlyCoin(placedBetPositions[index], playerBankPositions[index]));
+            StartCoroutine(ChipShowerManager.Instance.FlyCoinAndCard(placedBetPositions[index], playerBankPositions[index]));
         }
 
         playerBets[index] = 0;
-        gm.playersWithBlackjack.Clear();
     }
+
 
 }
