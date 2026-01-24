@@ -22,6 +22,7 @@ public class ProfileAndBetManager : MonoBehaviour
 
     int betNumber = 0;
     GameManager gm;
+    MusicManager mm;
 
     public UnityEvent<int, int> doubleBetEvent = new UnityEvent<int, int>();
 
@@ -32,6 +33,7 @@ public class ProfileAndBetManager : MonoBehaviour
     void Start()
     {
         gm = GameManager.Instance;
+        mm = MusicManager.Instance;
         gm.dealersTurn.AddListener(() =>
         {
             actionButtonsGO.SetActive(false);
@@ -66,6 +68,7 @@ public class ProfileAndBetManager : MonoBehaviour
 
     public void PlaceBet(int playerIndex, int amount, RectTransform placedPosition, RectTransform bankPosition, GameObject betChipsGO)
     {
+        mm.PlayAudio("PlaceBet");
         playerBets[playerIndex] = amount;
         placedBetPositions[playerIndex] = placedPosition;
         playerBankPositions[playerIndex] = bankPosition;
@@ -88,6 +91,7 @@ public class ProfileAndBetManager : MonoBehaviour
 
     void DoubleBet(int playerIndex)
     {
+        mm.PlayAudio("PlaceBet");
         int currentBet = playerBets[playerIndex];
         if (totalPlayerChips[playerIndex] >= currentBet)
         {
@@ -150,12 +154,14 @@ public class ProfileAndBetManager : MonoBehaviour
             else
             {
                 StartCoroutine(ChipShowerManager.Instance.FlyCoinAndCard(placedBetPositions[index], dealerBankPosition));
+
             }
         }
         else
         {
             totalPlayerChips[index] += playerBets[index];
             StartCoroutine(ChipShowerManager.Instance.FlyCoinAndCard(placedBetPositions[index], playerBankPositions[index]));
+
         }
 
         playerBets[index] = 0;

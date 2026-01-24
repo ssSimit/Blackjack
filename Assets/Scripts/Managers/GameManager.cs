@@ -57,17 +57,18 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent<int> playerDoubledDown = new UnityEvent<int>();
 
+    MusicManager mm;
+
     void Awake()
     {
         Instance = this;
         Bootstrap();
     }
 
-    // void Start()
-    // {
-    //     SpawnOpeningCardViews();
-    // }
-
+    void Start()
+    {
+        mm = MusicManager.Instance;
+    }
     private void Bootstrap()
     {
         InitializeCardSprites();
@@ -182,7 +183,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator hitCoroutine()
     {
+        mm.PlayAudio("CardFly");
+
         yield return StartCoroutine(ChipShowerManager.Instance.FlyCoinAndCard(deckTransform, playerCardAnchors[currentPlayerIndex], false));
+
         Hand hand = playerHands[currentPlayerIndex];
 
         Card card = deck.DrawCard();
@@ -214,6 +218,7 @@ public class GameManager : MonoBehaviour
             playersBustedCount++;
             isDoubleHitting = false;
             sendPlayerFeedback.Invoke("Busted!", currentPlayerIndex, Color.white);
+            mm.PlayAudio("busted");
             if (playersBustedCount >= playerHands.Count)
             {
                 allPlayersBust = true;
@@ -240,6 +245,7 @@ public class GameManager : MonoBehaviour
         {
             // Debug.Log($"Player {currentPlayerIndex + 1} has Blackjack!");
             sendPlayerFeedback.Invoke("Blackjack!", currentPlayerIndex, Color.yellow);
+            mm.PlayAudio("blackjack");
             playersWithBlackjack.Add(currentPlayerIndex);
             EndCurrentPlayerTurn();
         }
@@ -292,7 +298,10 @@ public class GameManager : MonoBehaviour
     {
         while (dealerHand.GetHandValue() < 17)
         {
+            mm.PlayAudio("CardFly");
+
             yield return StartCoroutine(ChipShowerManager.Instance.FlyCoinAndCard(deckTransform, dealerCardAnchor, false));
+
             yield return new WaitForSeconds(0.5f);
 
             Card card = deck.DrawCard();
@@ -383,12 +392,15 @@ public class GameManager : MonoBehaviour
             }
             sendPlayerWinLoss.Invoke(playerWon, i, push);
         }
+
         Invoke("ResetForNextRound", 3f);
     }
 
 
     void ResetForNextRound()
     {
+        mm.PlayAudio("ChipTransfer");
+
         currentPlayerIndex = 0;
         roundResolved.Invoke();
         playersWithBlackjack.Clear();
